@@ -15,4 +15,5 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
 
 CMD gcloud compute reservations create $RESERVATION_NAME --vm-count $NUMBER_OF_VMS --zone $ZONE --machine-type $MACHINE_TYPE \
     --description=$RESERVATION_NAME \
-    --project=$PROJECT_ID
+    --project=$PROJECT_ID \
+    --require-specific-reservation
