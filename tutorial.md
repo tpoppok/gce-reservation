@@ -1,8 +1,10 @@
 # Create Reservations
+This tutorial is for the procedure to Cloud Run jobs that executes Google Compute Engine reservations.
+
 ## Preparation
 Once before you proceed, you may have to edit files to suit your environment.
 
-[env-vars]
+[env-vars.yaml]
 * RESERVATION_NAME: Your unique reservation name
 * NUMBER_OF_VMS: Number of VMs you reserve (default:32)
 * ZONE: Zone where you deploy your VMs (default:asia-northeast1-b)
@@ -12,29 +14,29 @@ Once before you proceed, you may have to edit files to suit your environment.
 
 ## Environment variables for crreating reservations
 ### Project ID
-```
+```bash
 export PROJECT_ID=$(gcloud config get project)
 ```
 
 ### Your Region
-```
+```bash
 export REGION="asia-northeast1"
 ```
 
 ## Setup Service Account
 ### Create service account
-```
+```bash
 gcloud iam service-accounts create reservations-creator
 ```
 ### Grant service-account IAM roles to create reservations
-```
+```bash
 gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member="reservation_creator@${PROJECT_ID}.iam.gserviceaccount.com" \
 --role="roles/compute.instanceAdmin.v1"
 ```
 ## Build image & push to Artifact Registry
 ### Create repository
-```
+```bash
 gcloud artifacts repositories create reservations \
 --repository-format=docker \
 --location=$REGION \
@@ -42,28 +44,28 @@ gcloud artifacts repositories create reservations \
 ```
 
 ### Store Repository URL to Env-vars
-```
+```bash
 export REPOSITORY_URL="REGION-docker.pkg.dev/$PROJEC
 /reservation-repo"
 ```
 
 ### Build container image
-```
+```bash
 docker build . -t reservation-job
 ```
 
 ### Tag your image
-```
+```bash
 docker tag reservations-job:latest $REPOSITORY_URL/reservation-job:latest
 ```
 
 ### Push image
-```
+```bash
 docker push $REPOSITORY_URL/reservation-job:latest
 ```
 
 ## Create Cloud Run jobs - job
-```
+```bash
 gcloud run jobs create reservation-job \
 --image $REPOSITORY_URL/reservation-job:latest \
 --region=$REGION \
