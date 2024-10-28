@@ -13,7 +13,16 @@ Once before you proceed, you may have to edit files to suit your environment.
 
 
 ## Environment variables for crreating reservations
-### Project ID
+### Verify your current project
+```bash
+gcloud config get project
+```
+If shell returns "(unset)" it means that you haven't currently been any projects. Then you set your project as below:
+```bash
+gcloud config set project [YOUR_PROJECT_ID]
+```
+
+### Set Project ID
 ```bash
 export PROJECT_ID=$(gcloud config get project)
 ```
