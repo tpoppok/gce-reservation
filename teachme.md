@@ -11,18 +11,52 @@ export REGION="asia-northeast1"
 ```
 
 ## Setup Service Account
-### Creation (If needed)
+### Create service account
 ```
 gcloud iam service-accounts create reservations-creator
 ```
-### Grant the Service Account IAM roles to create reservations
+### Grant service-account IAM roles to create reservations
 ```
 gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member="reservation_creator@${PROJECT_ID}.iam.gserviceaccount.com" \
 --role="roles/compute.instanceAdmin.v1"
 ```
-## Artifact Registry
+## Build image & push to Artifact Registry
+### Create repository
 ```
-REGION-docker.pkg.dev/YOUR_PROJECT/YOUR_REPOSITORY
+gcloud artifacts repositories create reservations \
+--repository-format=docker \
+--location=$REGION \
+--project=$PROJECT_ID
 ```
 
+### Store Repository URL to Env-vars
+```
+export REPOSITORY_URL="REGION-docker.pkg.dev/$PROJEC
+/reservation-repo"
+```
+
+### Build container image
+```
+docker build . -t reservation-job
+```
+
+### Tag your image
+```
+docker tag reservations-job:latest $REPOSITORY_URL/reservation-job:latest
+```
+
+### Push image
+```
+docker push $REPOSITORY_URL/reservation-job:latest
+```
+
+## Create Cloud Run jobs - job
+```
+gcloud run jobs create reservation-job \
+--image $REPOSITORY_URL/reservation-job:latest \
+--region=$REGION \
+--service-account=reservation-creator@${PROJECT_ID}.iam.gserviceaccount.com \
+--env-vars-file=env-vars.yaml \
+--project=$PROJECT_ID
+```
