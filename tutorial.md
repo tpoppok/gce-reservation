@@ -54,7 +54,7 @@ gcloud artifacts repositories create reservations \
 
 ### Store Repository URL to Env-vars
 ```bash
-export REPOSITORY_URL="REGION-docker.pkg.dev/$PROJECT_ID/reservation-repo"
+export REPOSITORY_URL="REGION-docker.pkg.dev/$PROJECT_ID/reservations"
 ```
 
 ### Build container image
