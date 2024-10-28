@@ -35,7 +35,7 @@ export REGION="asia-northeast1"
 ## Setup Service Account
 ### Create service account
 ```bash
-gcloud iam service-accounts create reservations-creator
+gcloud iam service-accounts create reservation-creator
 ```
 ### Grant service-account IAM roles to create reservations
 ```bash
