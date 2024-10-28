@@ -40,7 +40,7 @@ gcloud iam service-accounts create reservation-creator
 ### Grant service-account IAM roles to create reservations
 ```bash
 gcloud projects add-iam-policy-binding $PROJECT_ID \
---member "serviceAccount:reservation_creator@${PROJECT_ID}.iam.gserviceaccount.com" \
+--member "serviceAccount:reservation-creator@${PROJECT_ID}.iam.gserviceaccount.com" \
 --role "roles/compute.instanceAdmin.v1"
 ```
 ## Build image & push to Artifact Registry
