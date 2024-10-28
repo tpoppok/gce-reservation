@@ -64,7 +64,7 @@ docker build . -t reservation-job
 
 ### Tag your image
 ```bash
-docker tag reservations-job:latest $REPOSITORY_URL/reservation-job:latest
+docker tag reservation-job:latest $REPOSITORY_URL/reservation-job:latest
 ```
 
 ### Push image
