@@ -1,4 +1,15 @@
 # Create Reservations
+## Preparation
+Once before you proceed, you may have to edit files to suit your environment.
+
+[env-vars]
+* RESERVATION_NAME: Your unique reservation name
+* NUMBER_OF_VMS: Number of VMs you reserve (default:32)
+* ZONE: Zone where you deploy your VMs (default:asia-northeast1-b)
+* MACHINE_TYPE: Type of VMs you reserve (default:a3-megagpu-8g)
+* PROJECT_ID: Your Google Cloud project id (NOT project name or number)
+
+
 ## Environment variables for crreating reservations
 ### Project ID
 ```
