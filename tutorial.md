@@ -17,7 +17,7 @@ Once before you proceed, you may have to edit files to suit your environment.
 ```bash
 gcloud config get project
 ```
-If shell returns "(unset)" it means that you haven't currently been any projects. Then you set your project as below:
+If shell returns "(unset)" it means that you haven't currently been any projects. Then you should set your project as below:
 ```bash
 gcloud config set project [YOUR_PROJECT_ID]
 ```
